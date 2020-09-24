@@ -30,7 +30,7 @@ jobs:
 
       - name: Add App.java file
         run: |
-          SOURCE_PATH=src/main/$(echo ${{ env.GROUP_ID }} | tr . /)/App.java
+          SOURCE_PATH=src/main/java/$(echo ${{ env.GROUP_ID }} | tr . /)/App.java
           cat <<- END > $SOURCE_PATH
           package ${{ env.GROUP_ID }};
           public class App
