@@ -30,7 +30,7 @@ jobs:
 
       - name: Add App.java file
         run: |
-          cat <- END > src/main/java/com/octokat/app/App.java
+          cat <<- END > src/main/java/com/octokat/app/App.java
           package ${{ env.GROUP_ID }};
           public class App
           {
