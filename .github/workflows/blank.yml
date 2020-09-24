@@ -1,0 +1,24 @@
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create package
+        run: |
+          mvn archetype:generate \
+            -DgroupId=com.mycompany.app \
+            -DartifactId=my-app \
+            -DarchetypeArtifactId=maven-archetype-quickstart \
+            -DarchetypeVersion=1.4 \
+            -DinteractiveMode=false \
+
+      - name: Build package
+        run: mvn package
+
+      - name: Run package
+        run: java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
