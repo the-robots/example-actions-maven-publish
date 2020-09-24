@@ -29,7 +29,17 @@ jobs:
             -DinteractiveMode=false \
 
       - name: Add App.java file
-        run: echo "boom" > src/main/java/com/octokat/app/App.java
+        run: |
+          cat <- END > src/main/java/com/octokat/app/App.java \
+          package ${{ env.GROUP_ID }}; \
+          public class App \
+          { \
+              public static void main( String[] args ) \
+              { \
+                  System.out.println( "Hello from ${{ github.repository }}!" ); \
+              } \
+          } \    
+          END
         working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Build package
