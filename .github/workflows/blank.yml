@@ -3,6 +3,7 @@ on:
 
 env:
   ARTIFACT_ID: my-app 
+  VERSION: 1.0-SNAPSHOT
 
 jobs:
   deploy:
@@ -22,6 +23,7 @@ jobs:
             -DgroupId=com.mycompany.app \
             -DartifactId=${{ env.ARTIFACT_ID }} \
             -DarchetypeArtifactId=maven-archetype-quickstart \
+            -Dversion=${{ env.VERSION }} \
             -DarchetypeVersion=1.4 \
             -DinteractiveMode=false \
 
@@ -30,7 +32,7 @@ jobs:
         working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Run package
-        run: java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+        run: java -cp target/${{ env.ARTIFACT_ID }}-${{ env.VERSION }}.jar com.mycompany.app.App
         working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Deploy package
