@@ -28,6 +28,10 @@ jobs:
             -DarchetypeVersion=1.4 \
             -DinteractiveMode=false \
 
+      - name: Add App.java file
+        run: echo "boom" > src/main/java/com/octokat/app/App.java
+        working-directory: ${{ env.ARTIFACT_ID }}
+
       - name: Build package
         run: mvn package
         working-directory: ${{ env.ARTIFACT_ID }}
