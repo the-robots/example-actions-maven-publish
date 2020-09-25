@@ -18,15 +18,18 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Create package
+      - name: Add simple pom.xml
         run: |
-          mvn archetype:generate \
-            -DgroupId=${{ env.GROUP_ID }} \
-            -DartifactId=${{ env.ARTIFACT_ID }} \
-            -DarchetypeArtifactId=maven-archetype-quickstart \
-            -Dversion=${{ env.VERSION }} \
-            -DarchetypeVersion=1.4 \
-            -DinteractiveMode=false \
+          cat > pom.xml << EOM
+          <?xml version="1.0" encoding="UTF-8"?>
+          <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+            <modelVersion>4.0.0</modelVersion>
+            <groupId>${{ env.GROUP_ID }}</groupId>
+            <artifactId>${{ env.ARTIFACT_ID }}</artifactId>
+            <version>${{ env.VERSION }}</version>
+          </project>
+          EOM
 
       - name: Add App.java file
         run: |
