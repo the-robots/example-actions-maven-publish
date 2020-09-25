@@ -44,19 +44,15 @@ jobs:
               }
           }
           END
-        working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Build package
         run: mvn package
-        working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Run package
         run: java -cp target/${{ env.ARTIFACT_ID }}-${{ env.VERSION }}.jar ${{ env.GROUP_ID }}.App
-        working-directory: ${{ env.ARTIFACT_ID }}
 
       - name: Deploy package
         run: mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }}
-        working-directory: ${{ env.ARTIFACT_ID }}
         env:
           GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
 
