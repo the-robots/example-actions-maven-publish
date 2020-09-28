@@ -5,6 +5,7 @@ env:
   GROUP_ID: com.octokat.app
   ARTIFACT_ID: octokat-app
   VERSION: 1.0-SNAPSHOT
+  CLASS_NAME: App
 
 jobs:
   deploy:
@@ -31,14 +32,14 @@ jobs:
           </project>
           EOM
 
-      - name: Add App.java file
+      - name: Add ${{ env.CLASS_NAME }}.java file
         run: |
           SOURCE_DIR=src/main/java/$(echo ${{ env.GROUP_ID }} | tr . /)
           mkdir -p $SOURCE_DIR
-          SOURCE_PATH=$SOURCE_DIR/App.java
+          SOURCE_PATH=$SOURCE_DIR/${{ env.CLASS_NAME }}.java
           cat <<- END > $SOURCE_PATH
           package ${{ env.GROUP_ID }};
-          public class App
+          public class ${{ env.CLASS_NAME }}
           {
               public static void main( String[] args )
               {
