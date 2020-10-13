@@ -43,7 +43,7 @@ jobs:
           {
               public static void main( String[] args )
               {
-                  System.out.println( "Hello from ${{ github.repository }}, commit ${{ github.sha }}!" );
+                  System.out.println( "Hello from ${{ github.repository }}, commit ${{ github.sha }}, run number ${{ github.run_number }}"!" );
               }
           }
           END
