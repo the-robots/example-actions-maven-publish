@@ -7,6 +7,7 @@ env:
   ARTIFACT_ID: octokat-app
   VERSION: 1.0-SNAPSHOT
   CLASS_NAME: PublishApp
+  SETTINGS_FILE: settings.xml
 
 jobs:
   deploy:
@@ -47,7 +48,7 @@ jobs:
                 <password>${env.GITHUB_TOKEN}</password>
               </server>
             </servers>
-          </settings>' > settings.xml
+          </settings>' > ${{ env.SETTINGS_FILE }}
 
       - name: Add simple pom.xml
         run: |
@@ -85,7 +86,7 @@ jobs:
         run: java -cp target/${{ env.ARTIFACT_ID }}-${{ env.VERSION }}.jar ${{ env.GROUP_ID }}.${{ env.CLASS_NAME }}
 
       - name: Deploy package
-        run: mvn deploy --settings settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --no-transfer-progress
+        run: mvn deploy --settings ${{ env.SETTINGS_FILE }} -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
 
