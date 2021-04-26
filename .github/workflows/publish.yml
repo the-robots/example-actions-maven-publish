@@ -90,6 +90,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
 
-      - run: gh api repos/${{ github.repository_owner }}/maven-install/dispatches <<< '{"event_type":"build"}' --input -
+      - name: Trigger maven-install workflow
+        if: ${{ env.GITHUB_TOKEN != null }}
+        run: gh api repos/${{ github.repository_owner }}/maven-install/dispatches <<< '{"event_type":"build"}' --input -
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
